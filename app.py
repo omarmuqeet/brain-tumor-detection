@@ -14,25 +14,15 @@ st.set_page_config(
 
 st.markdown("""
 <style>
-/* Main background */
 .stApp {
-    background-color: #f0f8ff;
+    background-color: #f0f8ff !important;
 }
-
-/* Sidebar */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #1a56db 0%, #1e3a8a 100%);
+    background: linear-gradient(180deg, #1a56db 0%, #1e3a8a 100%) !important;
 }
 section[data-testid="stSidebar"] * {
     color: #ffffff !important;
 }
-section[data-testid="stSidebar"] .stMarkdown h1,
-section[data-testid="stSidebar"] .stMarkdown h2,
-section[data-testid="stSidebar"] .stMarkdown h3 {
-    color: #bfdbfe !important;
-}
-
-/* Header banner */
 .header-banner {
     background: linear-gradient(135deg, #1a56db 0%, #1e40af 100%);
     padding: 30px;
@@ -52,8 +42,6 @@ section[data-testid="stSidebar"] .stMarkdown h3 {
     font-size: 1rem;
     margin: 8px 0 0 0;
 }
-
-/* Stat cards */
 .stat-card {
     background: #ffffff;
     border: 2px solid #bfdbfe;
@@ -62,60 +50,50 @@ section[data-testid="stSidebar"] .stMarkdown h3 {
     text-align: center;
     box-shadow: 0 2px 8px rgba(26,86,219,0.1);
 }
-.stat-card .stat-value {
+.stat-value {
     font-size: 2rem;
     font-weight: 800;
     color: #1a56db;
 }
-.stat-card .stat-label {
+.stat-label {
     font-size: 0.85rem;
     color: #6b7280;
     margin-top: 4px;
 }
-
-/* Upload section */
-.upload-section {
-    background: #ffffff;
-    border: 2px dashed #1a56db;
-    border-radius: 16px;
-    padding: 20px;
-    margin: 20px 0;
-}
-
-/* Tumor class cards */
-.tumor-card {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 20px;
+.sidebar-card {
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 12px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border: 1px solid #e5e7eb;
+    margin-bottom: 10px;
 }
-
-/* Section headers */
-h2, h3 {
-    color: #1a56db !important;
-}
-
-/* Logo text */
-.logo-text {
+.sidebar-card .val {
     font-size: 1.8rem;
     font-weight: 800;
     color: #ffffff;
-    text-align: center;
 }
-.logo-sub {
-    font-size: 0.75rem;
+.sidebar-card .lbl {
+    font-size: 0.8rem;
     color: #bfdbfe;
-    text-align: center;
 }
-
-/* Metric boxes */
-.stMetric {
-    background: #ffffff;
-    border: 1px solid #bfdbfe;
+.sidebar-card-sm {
+    background: rgba(255,255,255,0.15);
     border-radius: 10px;
     padding: 10px;
+    text-align: center;
+    flex: 1;
+}
+.sidebar-card-sm .val {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+.sidebar-card-sm .lbl {
+    font-size: 0.7rem;
+    color: #bfdbfe;
+}
+h2, h3 {
+    color: #1a56db !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -181,17 +159,27 @@ def apply_gradcam(model, image):
 
 # ── SIDEBAR ──────────────────────────────────────────────
 with st.sidebar:
-    st.markdown('<div class="logo-text">🧠 BrainAI</div>', unsafe_allow_html=True)
-    st.markdown('<div class="logo-sub">Medical Imaging Intelligence</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align:center; font-size:1.8rem; font-weight:800; color:#ffffff;">🧠 BrainAI</div>', unsafe_allow_html=True)
+    st.markdown('<div style="text-align:center; font-size:0.75rem; color:#bfdbfe; margin-bottom:16px;">Medical Imaging Intelligence</div>', unsafe_allow_html=True)
     st.markdown("---")
 
     st.markdown("### 🖥️ Model Info")
-    st.metric("Test Accuracy", "92.44%")
-    col_a, col_b = st.columns(2)
-    with col_a:
-        st.metric("Best AUC", "0.994")
-    with col_b:
-        st.metric("MRI Scans", "7,200")
+    st.markdown("""
+    <div class="sidebar-card">
+        <div class="val">92.44%</div>
+        <div class="lbl">Test Accuracy</div>
+    </div>
+    <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <div class="sidebar-card-sm">
+            <div class="val">0.994</div>
+            <div class="lbl">Best AUC</div>
+        </div>
+        <div class="sidebar-card-sm">
+            <div class="val">7,200</div>
+            <div class="lbl">MRI Scans</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("### 🎯 Detectable Classes")
@@ -220,7 +208,7 @@ with st.sidebar:
     """)
 
     st.markdown("---")
-    st.warning("⚠️ For educational purposes only.\nNot a substitute for medical advice.")
+    st.warning("⚠️ For educational purposes only. Not a substitute for medical advice.")
 
 # ── HEADER ───────────────────────────────────────────────
 st.markdown("""
@@ -304,7 +292,7 @@ else:
     for col, (emoji, name, risk, bg, color) in zip([col1, col2, col3, col4], cards):
         with col:
             st.markdown(f"""
-            <div style="background:{bg}; border-radius:12px; padding:20px; text-align:center; border: 1px solid {color}30;">
+            <div style="background:{bg}; border-radius:12px; padding:20px; text-align:center; border:1px solid {color}50;">
                 <div style="font-size:2.5rem;">{emoji}</div>
                 <div style="font-weight:700; color:{color}; font-size:1.1rem;">{name}</div>
                 <div style="color:#6b7280; font-size:0.85rem;">{risk}</div>
