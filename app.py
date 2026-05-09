@@ -12,6 +12,50 @@ st.set_page_config(
     layout="wide"
 )
 
+# Light blue and white theme
+st.markdown("""
+    <style>
+    .stApp {
+        background-color: #f0f8ff;
+    }
+    .stSidebar {
+        background-color: #dbeafe;
+    }
+    .stSidebar .stMarkdown {
+        color: #1e3a5f;
+    }
+    h1, h2, h3 {
+        color: #1a56db;
+    }
+    .stMetric {
+        background-color: #ffffff;
+        border: 1px solid #bfdbfe;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .stButton>button {
+        background-color: #1a56db;
+        color: white;
+        border-radius: 8px;
+    }
+    .stFileUploader {
+        background-color: #ffffff;
+        border: 2px dashed #1a56db;
+        border-radius: 10px;
+    }
+    div[data-testid="stSuccess"] {
+        background-color: #d1fae5;
+    }
+    div[data-testid="stError"] {
+        background-color: #fee2e2;
+    }
+    div[data-testid="stInfo"] {
+        background-color: #dbeafe;
+        color: #1e3a5f;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 CLASS_NAMES = ["Glioma", "Meningioma", "No Tumor", "Pituitary"]
 CLASS_INFO = {
     "Glioma": {"color": "🔴", "description": "Glioma is a tumor that occurs in the brain and spinal cord."},
@@ -83,9 +127,9 @@ st.markdown("---")
 with st.sidebar:
     st.header("ℹ️ About")
     st.markdown("""
-    **Model:** VGG16 Transfer Learning
-    **Accuracy:** 82.63%
-    **Feature:** Grad-CAM Visualization
+    **Model:** VGG16 Transfer Learning  
+    **Accuracy:** 92.44%  
+    **Feature:** Grad-CAM Visualization  
     
     **Classes:**
     - 🔴 Glioma
